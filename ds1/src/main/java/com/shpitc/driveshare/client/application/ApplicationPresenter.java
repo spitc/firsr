@@ -22,16 +22,29 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.ContentSlot;
+import com.gwtplatform.mvp.client.annotations.ProxyEvent;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
+import com.gwtplatform.mvp.client.proxy.AsyncCallFailEvent;
+import com.gwtplatform.mvp.client.proxy.AsyncCallFailHandler;
+import com.gwtplatform.mvp.client.proxy.AsyncCallStartEvent;
+import com.gwtplatform.mvp.client.proxy.AsyncCallStartHandler;
+import com.gwtplatform.mvp.client.proxy.AsyncCallSucceedEvent;
+import com.gwtplatform.mvp.client.proxy.AsyncCallSucceedHandler;
 import com.gwtplatform.mvp.client.proxy.Proxy;
 import com.gwtplatform.mvp.client.proxy.RevealContentHandler;
 
-public class ApplicationPresenter extends Presenter<ApplicationPresenter.MyView, ApplicationPresenter.MyProxy> {
+public class ApplicationPresenter extends Presenter<ApplicationPresenter.MyView, ApplicationPresenter.MyProxy>
+implements AsyncCallStartHandler, AsyncCallFailHandler, AsyncCallSucceedHandler {
     public interface MyView extends View {
     }
+    
 
     @ContentSlot
+    public static final Type<RevealContentHandler<?>> SLOT_SetHeagerContent = new Type<RevealContentHandler<?>>();
+    @ContentSlot
     public static final Type<RevealContentHandler<?>> SLOT_SetMainContent = new Type<RevealContentHandler<?>>();
+    @ContentSlot
+    public static final Type<RevealContentHandler<?>> SLOT_SetFooterContent = new Type<RevealContentHandler<?>>();
 
     @ProxyStandard
     public interface MyProxy extends Proxy<ApplicationPresenter> {
@@ -41,4 +54,21 @@ public class ApplicationPresenter extends Presenter<ApplicationPresenter.MyView,
     public ApplicationPresenter(EventBus eventBus, MyView view, MyProxy proxy) {
         super(eventBus, view, proxy, RevealType.Root);
     }
+
+    @ProxyEvent
+	@Override
+	public void onAsyncCallSucceed(AsyncCallSucceedEvent asyncCallSucceedEvent) {
+	}
+
+    @ProxyEvent
+	@Override
+	public void onAsyncCallFail(AsyncCallFailEvent asyncCallFailEvent) {
+	}
+
+    @ProxyEvent
+	@Override
+	public void onAsyncCallStart(AsyncCallStartEvent asyncCallStartEvent) {
+    	
+		
+	}
 }
