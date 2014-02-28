@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+    version="2.5">
+    <display-name>Project</display-name>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+        	classpath*:META-INF/applicationContext.xml
+            classpath*:META-INF/applicationContext-security.xml
+        	classpath*:META-INF/JPAContext.xml
+        	classpath*:META-INF/DaoContext.xml
+        	classpath*:META-INF/services.xml
+        	classpath*:META-INF/Handlers.xml            
+        </param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>
+            org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
+
+<!--     <servlet> -->
+<!--         <servlet-name>requestFactoryServlet</servlet-name> -->
+<!--         <servlet-class>com.shpitc.driveshare.server.util.SpringRequestServlet</servlet-class> -->
+<!--         <load-on-startup>1</load-on-startup> -->
+<!--     </servlet> -->
+<!--     <servlet-mapping> -->
+<!--         <servlet-name>requestFactoryServlet</servlet-name> -->
+<!--         <url-pattern>/gwtRequest</url-pattern> -->
+<!--     </servlet-mapping> -->
+ 
+ 
+    
+<!--      <listener> -->
+<!--         <listener-class>com.shpitc.driveshare.server.guice.GuiceServletConfig</listener-class> -->
+<!--     </listener> -->
+
+<!--     <filter> -->
+<!--         <filter-name>guiceFilter</filter-name> -->
+<!--         <filter-class>com.google.inject.servlet.GuiceFilter</filter-class> -->
+<!--     </filter> -->
+    
+<!--     <filter-mapping> -->
+<!--         <filter-name>guiceFilter</filter-name> -->
+<!--         <url-pattern>/*</url-pattern> -->
+<!--     </filter-mapping> -->
+ 
+ 
+<!--      <servlet> -->
+<!--         <servlet-name>dispatcher</servlet-name> -->
+<!--         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> -->
+<!--         <init-param> -->
+<!--         	<param-name>contextConfigLocation</param-name> -->
+<!--         	<param-value>/META-INF/services.xml</param-value> -->
+<!--     	</init-param> -->
+<!--     	<load-on-startup>1</load-on-startup> -->
+<!--     </servlet> -->
+
+<!--     <servlet-mapping> -->
+<!--         <servlet-name>dispatcher</servlet-name> -->
+<!--         <url-pattern>/</url-pattern> -->
+<!--     </servlet-mapping> -->
+    
+        <servlet>
+        	<servlet-name>dispatch</servlet-name>
+        	<servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
+        </servlet>
+
+        <servlet-mapping>
+                <servlet-name>dispatch</servlet-name>
+                <url-pattern>/dispatch/*</url-pattern>
+        </servlet-mapping>
+        
+        
+    <servlet>
+		<servlet-name>pages</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath*:META-INF/pages.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+  	<servlet-mapping>
+		<servlet-name>pages</servlet-name>
+		<url-pattern>/pages/*</url-pattern>
+	</servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>Project.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
